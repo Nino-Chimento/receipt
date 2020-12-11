@@ -3,9 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Document</title>
   </head>
   <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center">Seleziona quantita e prodotto</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label for="quantity">quantita</label>
+          <input type="number" id="quantity" name="quantity" min="1" />
+        </div>
+        <div class="col-4">
+          <label for="product">Prodotto</label>
+          <select name="product" id="product">
+            <option>Seleziona un prodotto</option>
+            <option value="12.49">book</option>
+            <option value="14.99">music CD</option>
+            <option value="00.85">chocolate bar</option>
+            <option value="10.00">imported box of chocolates</option>
+            <option value="47.5">imported bottle of perfume</option>
+            <option value="18.99">bottle of perfume</option>
+            <option value="9.75">packet of headache pills</option>
+            <option value="11.25">box of imported chocolates</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label for="price">price</label>
+          <input type="text" id="price" name="price" disabled />
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-6 d-flex justify-content-center">
+            <button id="add" name="add" class="btn btn-success" disabled="true">
+              Aggiungi al carrello
+            </button>
+          </div>
+          <div class="col-6 d-flex justify-content-center">
+            <button id="sum" name="sum" class="btn btn-success" disabled="true">
+              Totale
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h2 id="titleBasket" class="invisible">Prodotti nel carrello</h2>
+          <ul id="basket" name="basket" class="list-unstyled"></ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h2 id="titleTotal" class="invisible">Totale carrello</h2>
+          <ul id="total" name="total" class="list-unstyled"></ul>
+        </div>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

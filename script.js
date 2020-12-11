@@ -59,6 +59,66 @@ const basket3 = [
 // pagato. Le regole di arrotondamento per l'imposta sulle vendite sono che per un'aliquota fiscale di n%, un prezzo di scaffale di p contiene
 // (np / 100 arrotondato allo 0,05 più vicino) importo dell'imposta sulle vendite.
 
+$(document).ready(function () {
+  // aggiungo prezzo
+  var basket = [];
+  console.log(price, quantity);
+  $("select").change(() => {
+    const price = $("select").val();
+    $("#price").val(price);
+    if (price !== "" && quantity !== "") $("#add").attr("disabled", false);
+  });
+  //al click aggiungo prodotto
+  $("#add").click(() => {
+    $("#sum").attr("disabled", false);
+    const quantity = $("#quantity").val();
+    const price = parseFloat($("select").val());
+    const description = $("select option:selected").html();
+    if (quantity && price && description) {
+      $("#titleBasket").removeClass("invisible");
+      const li = $(document.createElement("li"));
+      li.text(
+        `Quantita ${quantity} Descrizione ${description} Prezzo ${price}`
+      );
+      $("#basket").append(li);
+      $("#price").val(" ");
+      $("#quantity").val(" ");
+      $("select").val(" ");
+      const product = {
+        quantity,
+        description,
+        price,
+      };
+      basket.push(product);
+    } else {
+      alert("inserisci quantita e prodotto");
+    }
+  });
+  // calcolo carrello
+  $("#sum").click(() => {
+    if (basket.length > 0) {
+      const result = calculate(basket);
+      $("#titleTotal").removeClass("invisible");
+      const { receipt, totalTax, total } = result;
+      receipt.forEach((element) => {
+        const li = $(document.createElement("li"));
+        li.text(
+          `Quantita ${element.quantity} Descrizione ${element.description} Prezzo ${element.total}`
+        );
+        $("#total").append(li);
+      });
+      li = $(document.createElement("li"));
+      li.text(`TotalTax ${totalTax}`);
+      $("#total").append(li);
+      li = $(document.createElement("li"));
+      li.text(`Total ${total}`);
+      $("#total").append(li);
+    } else {
+      alert("carrello vuoto");
+    }
+  });
+});
+
 function roundHalf(num) {
   return (num * 2) / 2;
 }
@@ -112,6 +172,5 @@ function calculate(array) {
     totalTax = totalTax + productFinal["tax"];
     total = total + productFinal["total"];
   });
-  receipt = [...receipt, totalTax, total];
-  return receipt;
+  return { receipt, totalTax, total };
 }
