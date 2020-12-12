@@ -77,6 +77,8 @@ $(document).ready(function () {
     if (quantity && price && description) {
       $("#titleBasket").removeClass("invisible");
       const li = $(document.createElement("li"));
+      $("#titleTotal").addClass("invisible");
+      $("#total").html("");
       li.text(
         `Quantita ${quantity} Descrizione ${description} Prezzo ${price}`
       );
@@ -98,6 +100,9 @@ $(document).ready(function () {
   $("#sum").click(() => {
     if (basket.length > 0) {
       const result = calculate(basket);
+      $("#titleBasket").addClass("invisible");
+      $("#basket").html("");
+      basket = [];
       $("#titleTotal").removeClass("invisible");
       const { receipt, totalTax, total } = result;
       receipt.forEach((element) => {
